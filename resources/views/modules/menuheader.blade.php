@@ -1,6 +1,6 @@
 {{-- <div id="header" class="mx-3"> --}}
     <div id="cards" class="small row m-0 sticky-main">
-        <div class="bg-primary text-secondary card link col" href="https://wijnkast.restaurantdehaas.nl/">
+        <div class="bg-primary text-secondary card link col mx-auto" href="https://wijnkast.restaurantdehaas.nl/">
             <h3 class="spacing small-buttons">Wijnkamer</h3>
         </div>
         @each('modules.card', $menus, 'card')
@@ -18,7 +18,14 @@
                 @each('modules.card', $menu->courses, 'card')
             </div>
         </div>
+
+        @if($bg_image != '')
+            <div class="background-animation-wrapper">
+                <img class="background-animation" src="{{ asset('storage/images/uploaded/'. $bg_image) }}">
+            </div>
+        @endif
     </div>
+
     <div class="sticky-shadow"></div>
     <div class="shadow-cover"></div>
 

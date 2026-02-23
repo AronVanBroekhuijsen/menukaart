@@ -82,7 +82,7 @@ class Course extends Model
     public function sub_courses(): HasMany
     {
         if (Route::currentRouteName() !== 'menu_edit' && Route::currentRouteName() !== 'category_view' && Route::currentRouteName() !== 'dish_view') {
-            return $this->hasMany(SubCourse::class)->where('toggle', '=', 0)->orderBy('order');
+            return $this->hasMany(SubCourse::class)->orderBy('order');
         } else {
             return $this->hasMany(SubCourse::class);
         }

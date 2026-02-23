@@ -135,6 +135,20 @@
                             <input type="hidden"  name="vos_image" value="0">
                             <input name="vos_image" value="1" id="vos_image" type="checkbox" class="form-check-input">
                         </div>
+                        <div class="row m-0">
+                            <div for="date_label" class="form-label col-12 p-0">Selecteer datum label</div>
+                            <hr class="w-100">
+                            @foreach ($labels as $label)
+                                <div class="form-switch custom-check col-6">
+                                    <label for="{{$label->name}}" class="form-label">{{$label->name}}</label>
+                                    <input name="labels[{{$label->id}}][id]" value="{{$label->id}}" checked id="{{$label->name}}" type="checkbox" class="form-check-input">
+                                </div>
+                                <div class="form-switch col-6">
+                                    <label for="{{$label->name}}_price" class="form-label">Prijs</label>
+                                    <input name="labels[{{$label->id}}][price]" id="{{$label->name}}_price" type="number" step=".01" class="form-control">
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
