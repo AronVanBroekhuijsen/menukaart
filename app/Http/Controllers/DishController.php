@@ -12,7 +12,6 @@ use App\Models\DishDe;
 use App\Models\SubCourse;
 use App\Models\Menu;
 use App\Models\Setting;
-use App\Models\Label;
 use App\Traits\FunctionsTrait;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -45,7 +44,6 @@ class DishController extends Controller
 
         $beers = SubCourse::where('course_id', '=', Setting::find(3)->value)->get();
         $wines = SubCourse::where('course_id', '=', Setting::find(2)->value)->get();
-        $labels = Label::all();
 
         $with_products = Dish::where([
             ['product_id', '!=', '0'],
@@ -86,7 +84,7 @@ class DishController extends Controller
 
         $items = $this->pagination($items, 20, $page);
 
-        return view('editor.dish-view', ['items' => $items, 'menus' => $menus, 'current' => $request->menu, 'search_title' => $request->search_title, 'disabled' => $request->disabled, 'beers' => $beers, 'wines' => $wines, 'labels' => $labels]);
+        return view('editor.dish-view', ['items' => $items, 'menus' => $menus, 'current' => $request->menu, 'search_title' => $request->search_title, 'disabled' => $request->disabled, 'beers' => $beers, 'wines' => $wines]);
     }
 
     public function change_dish_view($id)
@@ -97,9 +95,8 @@ class DishController extends Controller
         $menus = Menu::get();
         $beers = SubCourse::where('course_id', '=', Setting::find(3)->value)->get();
         $wines = SubCourse::where('course_id', '=', Setting::find(2)->value)->get();
-        $labels = Label::all();
 
-        $html = view('editor.dish_modal_change', ['dishes' => $dishes, 'item' => $item, 'menus' => $menus, 'beers' => $beers, 'wines' => $wines, 'labels' => $labels])->render();
+        $html = view('editor.dish_modal_change', ['dishes' => $dishes, 'item' => $item, 'menus' => $menus, 'beers' => $beers, 'wines' => $wines])->render();
 
         return $html;
     }
@@ -160,13 +157,6 @@ class DishController extends Controller
         } else {
             $dish->product_id = 0;
         }
-        $collection = [];
-        foreach($request::input('labels') as $label) {
-            if (isset($label['id'])) {
-                $collection[$label['id']] = ['price' => $label['price']];
-            }
-        }
-        $dish->labels()->sync($collection);
         $dish->save();
 
         $translation = new DishNl();
@@ -245,13 +235,6 @@ class DishController extends Controller
         } else {
             $dish->product_id = 0;
         }
-        $collection = [];
-        foreach($request::input('labels') as $label) {
-            if (isset($label['id'])) {
-                $collection[$label['id']] = ['price' => $label['price']];
-            }
-        }
-        $dish->labels()->sync($collection);
         $dish->save();
 
         $translation = DishNl::where('dish_id', '=', $id)->first();

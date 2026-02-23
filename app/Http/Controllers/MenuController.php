@@ -9,9 +9,7 @@ use App\Models\SubCourse;
 use App\Models\Dish;
 use App\Models\SideInfo;
 use App\Models\Side;
-use App\Models\Label;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 class MenuController extends Controller
 {
@@ -23,10 +21,8 @@ class MenuController extends Controller
     public function home()
     {
         $menus = Menu::where('toggle', '=', 0)->orderBy('order')->get();
-        $now = Carbon::now();
-        $bg_image = Label::where('start', '<', $now)->where('end', '>', $now)->first()->image ?? '';
 
-        return view('main.home', ['menus' => $menus, 'bg_image' => $bg_image]);
+        return view('main.home', ['menus' => $menus]);
     }
 
     /**
@@ -40,8 +36,6 @@ class MenuController extends Controller
         $menu = Menu::where([['toggle', '=', 0],['id', '=', $id]])->first();
         $side_info = SideInfo::first();
         $sides = Side::where('toggle', '=', 0)->get();
-        $now = Carbon::now();
-        $bg_image = Label::where('start', '<', $now)->where('end', '>', $now)->first()->image ?? '';
 
         if ($side_info != null) {
             if (!isset($_GET['lang'])) {
@@ -85,6 +79,6 @@ class MenuController extends Controller
             return redirect('/');
         }
 
-        return view('main.menu', ['menu' => $menu, 'menus' => $menus, 'side_info' => $side_info, 'sides' => $sides, 'allergies' => $allergies, 'bg_image' => $bg_image]);
+        return view('main.menu', ['menu' => $menu, 'menus' => $menus, 'side_info' => $side_info, 'sides' => $sides, 'allergies' => $allergies]);
     }
 }

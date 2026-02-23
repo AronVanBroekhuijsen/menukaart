@@ -137,7 +137,7 @@ class SubCourse extends Model
     public function dishes(): HasMany
     {
         if (Route::currentRouteName() !== 'dish_view' && Route::currentRouteName() !== 'category_view') {
-            return $this->hasMany(Dish::class)->orderBy('order');
+            return $this->hasMany(Dish::class)->where('toggle', '=', 0)->orderBy('order');
         } else {
             return $this->hasMany(Dish::class);
         }

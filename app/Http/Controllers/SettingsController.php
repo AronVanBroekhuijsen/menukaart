@@ -23,6 +23,7 @@ class SettingsController extends Controller
         $settings->beer = Setting::find(3)->value ?? '';
         $settings->maincourses = Setting::find(4)->value ?? '';
         $settings->cocktailmenu = Setting::find(5)->value ?? '';
+        $settings->datetoggle = Setting::find(6)->value ?? '';
         $menus = Menu::get();
 
         return view('editor.settings', ['settings' => $settings, 'menus' => $menus]);
@@ -55,6 +56,10 @@ class SettingsController extends Controller
 
         $setting = Setting::find(5);
         $setting->value = $request::input('cocktailmenu');
+        $setting->save();
+
+        $setting = Setting::find(6);
+        $setting->value = $request::input('datetoggle');
         $setting->save();
 
         return Redirect::back();

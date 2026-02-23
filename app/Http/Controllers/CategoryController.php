@@ -17,7 +17,6 @@ use App\Models\SubCourse;
 use App\Models\SubCourseNl;
 use App\Models\SubCourseEn;
 use App\Models\SubCourseDe;
-use App\Models\Label;
 use App\Traits\FunctionsTrait;
 use Illuminate\Support\Facades\Storage;
 
@@ -40,7 +39,6 @@ class CategoryController extends Controller
         $menus = Menu::get();
         $items = collect();
         $page = $request->page ?? 1;
-        $labels = Label::all();
 
         if ($request->menu == null) {
             $paginated = $this->pagination($menus, 2, $page);
@@ -74,7 +72,7 @@ class CategoryController extends Controller
             $items->pages = $this->pagination($menus, 0, $page);
         }
 
-        return view('editor.category-view', ['items' => $items, 'menus' => $menus, 'current' => $request->menu, 'i' => 0, 'labels' => $labels]);
+        return view('editor.category-view', ['items' => $items, 'menus' => $menus, 'current' => $request->menu, 'i' => 0]);
     }
 
 
@@ -222,8 +220,6 @@ class CategoryController extends Controller
                     Storage::disk('images')->put($filename, file_get_contents($file->getRealPath()));
                     $menu->image = $filename;
                 }
-
-                $menu->labels()->sync($request::input('labels'));
                 $menu->save();
 
                 $category = MenuNl::where('menu_id', '=', $id)->first();

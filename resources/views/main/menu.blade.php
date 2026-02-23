@@ -18,16 +18,16 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         {{-- Fontawesome --}}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Ropa+Sans:ital@0;1&display=swap" rel="stylesheet">
 
-        @vite(['resources/css/app.scss', 'resources/js/app.js'])
+        {{-- Styles --}}
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
     </head>
     <body class="antialiased text-center">
 
         @include('main.auth')
 
         @if($menu !== null)
-            @include('modules.menuheader', ['menu' => $menu, 'allergies' => $allergies, 'bg_image' => $bg_image])
+            @include('modules.menuheader', ['menu' => $menu, 'allergies' => $allergies])
 
             @if($menu->id == $menu->cocktailmenu())
                 <div class="w-50 mx-auto position-relative z-10 pt-3">
@@ -56,5 +56,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+        {{-- Scripts --}}
+        <script src="{{asset('/js/app.js')}}"></script>
     </body>
 </html>

@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Carbon;
 
 class Menu extends Model
 {
@@ -23,16 +21,6 @@ class Menu extends Model
         'title',
         'sub_title',
     ];
-
-    public function labels(): BelongsToMany
-    {
-        $now = Carbon::now();
-        if (Route::currentRouteName() !== 'dish_view' && Route::currentRouteName() !== 'category_view') {
-            return $this->belongsToMany(Label::class, 'menu_label')->where('start', '<', $now)->where('end', '>', $now);
-        } else {
-            return $this->belongsToMany(Label::class, 'menu_label');
-        }
-    }
 
     public function title($value)
     {
@@ -158,12 +146,5 @@ class Menu extends Model
         $cocktailmenu = Setting::find(5)->value;
 
         return $cocktailmenu;
-    }
-
-    public function label_date() {
-        $now = Carbon::now();
-        $label = Label::where('start', '<', $now)->where('end', '>', $now)->first();
-
-        return $label;
     }
 }

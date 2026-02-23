@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 class Dish extends Model
 {
@@ -29,17 +27,6 @@ class Dish extends Model
         'sauce',
         'sub_course_id',
     ];
-
-
-    public function labels(): BelongsToMany
-    {
-        $now = Carbon::now();
-        if (Route::currentRouteName() !== 'dish_view' && Route::currentRouteName() !== 'category_view') {
-            return $this->belongsToMany(Label::class)->withPivot(['price'])->where('start', '<', $now)->where('end', '>', $now);
-        } else {
-            return $this->belongsToMany(Label::class)->withPivot(['price']);
-        }
-    }
 
     public function title($value)
     {
@@ -205,6 +192,7 @@ class Dish extends Model
 
     public function getSubProductAttribute($value) {
         $with_products = Dish::where([
+            ['toggle', '=', 0],
             ['product_id', '!=', '0'],
             ['product_id', '!=', 'NULL']
         ])->orderBy('order')->get();
@@ -212,9 +200,7 @@ class Dish extends Model
         foreach ($with_products as $with_product) {
             foreach ($with_product->product_id as $product_id) {
                 if ($this->id == $product_id) {
-                    if (($with_product->label_date() == null && $with_product->toggle == 0) || ($with_product->label_date() != null && $with_product->labels->first() != null)){
-                        $test[] = $with_product->title($with_product->id);
-                    }
+                    $test[] = $with_product->title($with_product->id);
                 }
             }
         }
@@ -252,13 +238,6 @@ class Dish extends Model
         $drinkmenu = Setting::find(1)->value;
 
         return $drinkmenu;
-    }
-
-    public function label_date() {
-        $now = Carbon::now();
-        $label = Label::where('start', '<', $now)->where('end', '>', $now)->first();
-
-        return $label;
     }
 
     public function more_info() {

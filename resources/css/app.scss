@@ -1,19 +1,12 @@
-@use "variables";
-@use "tablet";
+@import '~bootstrap/scss/bootstrap';
 
-$primary:#B7BF99;
-$secondary:#697353;
-$secondary_dark:#4e553e;
-$tertairy:#e1ad72;
-$tertairy_bright: #d88525;
-$primary_light:#9da873;
-$main_text:#fff;
+@import "fonts";
+@import "variables";
+@import "tablet";
 
 .nav {
     width: 100%;
     z-index: 50;
-    position: sticky;
-    top: 0;
 
     .custom-nav-links .nav-link {
         border-right: 1px solid silver;
@@ -119,25 +112,6 @@ body {
     background-color: $secondary;
     font-family: 'Exo',Helvetica,Arial,Lucida,sans-serif!important;
     line-height: 1.3em;
-    margin: 0;
-
-    .background-animation-wrapper {
-        position: absolute;
-        top: -25%;
-        right: 0;
-        height: 0;
-        width: 20%;
-        z-index: 100;
-        pointer-events: none;
-        .background-animation {
-            width: 100%;
-        }
-    }
-
-    .language_style img {
-            height: 23px;
-            display: unset;
-    }
 
     .z-10 {
         z-index: 10;
@@ -273,17 +247,12 @@ body {
     .card {
         padding: 5px 0;
         margin: 10px 0;
-        min-height: 50px;
+        min-height: 60px;
         border-radius: unset;
-        display: flex;
-        flex-direction: column;
         h3 {
-            font-weight: 700;
+            font-weight: 900;
             font-size: 20px;
             margin: auto;
-        }
-        span {
-            font-weight: 600;
         }
 
         h3:first-letter {
@@ -365,12 +334,6 @@ body {
         .sub-menu {
             width: 50%;
             margin: auto;
-            display: none;
-
-            &:has(.dish)  {
-                display: block;
-            }
-
             .no-shadow {
                 box-shadow: none!important;
             }
@@ -384,13 +347,14 @@ body {
 
                 .dish {
                     margin: 15px auto;
-                    font-family: 'Ropa Sans';
+                    font-family: 'RopaSans';
                     width: 90%;
                     .dish-h6 {
                         text-transform: uppercase;
                         font-size: 18px;
                         color: $main_text!important;
                         letter-spacing: 1px;
+                        font-weight: 800;
                         margin: 0;
                         padding-bottom: 10px;
                     }

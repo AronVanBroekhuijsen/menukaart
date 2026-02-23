@@ -1,30 +1,19 @@
-@use  "variables";
-
-$primary:#B7BF99;
-$secondary:#697353;
-$secondary_dark:#4e553e;
-$tertairy:#e1ad72;
-$tertairy_bright: #d88525;
-$primary_light:#9da873;
-$main_text:#fff;
+@import "fonts";
+@import "variables";
 
 @source "../node_modules/flowbite-datepicker";
 
 body {
-    background-color: $secondary!important;
-    font-family: Exo, Helvetica, Arial, Lucida, sans-serif!important;
+    background-color: $secondary;
+    font-family: 'JosefinSans';
 
     .nav {
+        position: fixed;
         width: 100%;
         z-index: 50;
-        position: sticky;
-        top: 0;
+        margin-top: -4rem;
 
-        .collapse {
-            visibility: unset;
-        }
-
-        .custom-nav-links .nav-link:not(:last-child) {
+        .custom-nav-links .nav-link {
             border-right: 1px solid silver;
         }
         @media (max-width: 768px) {
@@ -161,7 +150,7 @@ body {
                 }
             }
         }
-        .disabled td {
+        .disabled {
             background-color: lightgrey!important;
             color: rgb(33 37 41 / 50%);
             &:hover td {
