@@ -1,0 +1,49 @@
+$primary:#B7BF99;
+$secondary:#697353;
+$secondary_dark:#4e553e;
+$tertairy:#e1ad72;
+$tertairy_bright: #d88525;
+$primary_light:#9da873;
+$main_text:#fff;
+
+// $primary:#f08232;
+// $secondary:#404140;
+// $tertairy:#97ccd4;
+// $primary_light:#f59f5e;
+// $main_text:#cadedd;
+
+// Standard background colors
+.bg-primary {
+    background-color: $primary!important;
+}
+.bg-secondary {
+    background-color: $secondary!important;
+}
+.bg-tertiary {
+    background-color: $tertairy!important;
+}
+
+//Standard text colors
+.text-primary {
+    color: $primary!important;
+}
+.text-secondary {
+    color: $secondary!important;
+}
+.text-tertiary {
+    color: $tertairy!important;
+}
+
+.tertairy-bright {
+    color: $tertairy_bright;
+}
+
+
+.hover-primary:hover {
+    color: $primary_light!important;
+}
+
+.link {
+    cursor: pointer;
+}
+

@@ -1,0 +1,175 @@
+@import "fonts";
+@import "variables";
+
+@source "../node_modules/flowbite-datepicker";
+
+body {
+    background-color: $secondary;
+    font-family: 'JosefinSans';
+
+    .nav {
+        position: fixed;
+        width: 100%;
+        z-index: 50;
+        margin-top: -4rem;
+
+        .custom-nav-links .nav-link {
+            border-right: 1px solid silver;
+        }
+        @media (max-width: 768px) {
+            .custom-nav-links .nav-link {
+                border-right: none;
+            }
+        }
+    }
+    .mb-4rem {
+        margin-bottom: 4rem;
+    }
+
+    #addCategory {
+
+        .hide {
+            display: none;
+        }
+
+        .show {
+            display: block!important;
+        }
+    }
+
+    #addDish .select2-container, .select2-container, #addCategory .select2-container {
+        width: 100%!important;
+    }
+    #addDish .select2-container--default .select2-selection--single, .changeDishMain .select2-container--default .select2-selection--single, #addCategory .select2-container--default .select2-selection--single {
+        height: 35.59px !important;
+        .select2-selection__arrow {
+            height: 34.59px!important;
+        }
+        .select2-selection__rendered {
+            line-height: 34.59px!important;
+        }
+    }
+
+    .crud-table {
+        background-color: #f8f8f8;
+        font-family: sans-serif;
+        min-width: min-content;
+
+        .add-dish {
+            height: -webkit-fill-available;
+        }
+        .add-category {
+            line-height: 14px;
+        }
+
+        .custom-select {
+            font-family: sans-serif;
+            .optionParent {
+                font-weight: bold;
+            }
+            .optionSubParent {
+                padding-left: 15px;
+            }
+            .optionChild {
+                padding-left: 30px;
+            }
+        }
+
+        .search_title {
+            width: 100%;
+            height: 28px;
+        }
+
+        .custom-check {
+            height: 66.63px;
+            padding-left: 0;
+            margin-bottom: 1rem;
+            .form-check-input {
+                left: 0;
+                margin-left: 10px;
+                margin-top: 32px;
+                height: 25px;
+                width: 50px;
+            }
+        }
+
+
+        .pagination {
+            display: inline-block;
+        }
+
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
+
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+            border-radius: 5px;
+        }
+
+
+        .menu {
+            font-weight: bolder;
+        }
+        .courses {
+            td:first-child {
+                padding-left: 10px;
+                div {
+                    transform: rotate(45deg);
+                    width: fit-content;
+                    float: left;
+                    padding-right: 5px;
+                    &::before {
+                        content: '\f00c';
+                        font-family: FontAwesome;
+                    }
+                }
+            }
+        }
+        .sub_courses {
+            td:first-child {
+                padding-left: 30px;
+                div {
+                    transform: rotate(45deg);
+                    width: fit-content;
+                    float: left;
+                    padding-right: 5px;
+                    &::before {
+                        content: '\f00c';
+                        font-family: FontAwesome;
+                    }
+                }
+            }
+        }
+        .disabled {
+            background-color: lightgrey!important;
+            color: rgb(33 37 41 / 50%);
+            &:hover td {
+                color: rgb(33 37 41 / 50%);
+            }
+        }
+    }
+    .fa-check {
+        color: rgb(0, 158, 0);
+    }
+    .fa-xmark {
+        color: red;
+    }
+
+    .bg-primary{
+        text-decoration: none;
+        &:hover {
+            background-color: $primary_light!important;
+            color: $secondary!important;
+        }
+    }
+}
