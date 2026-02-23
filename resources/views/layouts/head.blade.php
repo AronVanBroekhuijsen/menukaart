@@ -13,6 +13,5 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 {{-- Styles --}}
-<link rel="stylesheet" href="/build/jodit.min.css" />
-<link rel="stylesheet" href="/css/app.css" />
-<link rel="stylesheet" href="/css/admin.css" />
+@vite(['resources/css/app.css', 'resources/css/admin.scss', 'node_modules/jodit/es5/jodit.css', 'node_modules/bootstrap/dist/css/bootstrap.css', 'resources/js/admin.js'])
+

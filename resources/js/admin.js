@@ -214,3 +214,33 @@ $('#changeCategory').find('#sub_title').on('change', function(){
         $('#changeCategory').find('#sub_title_de').prop("required", false);
     }
 });
+
+$(document).on('change', '#start_add', function() {
+    $('#end_add').attr({"min" : $(this).val()});
+});
+
+$(document).on('change', '#end_add', function() {
+    $('#start_add').attr({"max" : $(this).val()});
+});
+
+$(document).on('change', '#start_change', function() {
+    $('#end_change').attr({"min" : $(this).val()});
+});
+
+$(document).on('change', '#end_change', function() {
+    $('#start_change').attr({"max" : $(this).val()});
+});
+
+$('.changeLabelButton').on('click', function(){
+    var id = $(this).data('label-id');
+    $.ajax({
+        url: "/change-label-modal/"+id,
+        success: function(result){
+            $('#changeLabel .modal-content').append( result );
+        }
+    });
+});
+
+$('#changeLabel').on("hide.bs.modal", function() {
+	$('#changeLabel .modal-content form').remove();
+});
