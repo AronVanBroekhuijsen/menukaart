@@ -1,4 +1,3 @@
-@if ($sub_course->toggle == 0)
 
     @if($sub_course->image)
         <div class="background-wrapper position-relative">
@@ -26,4 +25,3 @@
     @if($sub_course->image)
         </div>
     @endif
-@endif

@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SauceController;
 use App\Http\Controllers\SideController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\LabelController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Auth\LoginController;
@@ -29,6 +30,7 @@ Route::get('/', [MenuController::class, 'home']);
 Route::get('/app/{menu}/{id}', [MenuController::class, 'menu']);
 
 Route::get('/change-dish-modal/{id}', [DishController::class, 'change_dish_view'])->name('change_dish_view');
+Route::get('/change-label-modal/{id}', [LabelController::class, 'change_label_view'])->name('change_label_view');
 Route::get('/change-select-view/{selected}', [DishController::class, 'change_select_view'])->name('change_select_view');
 
 Route::middleware('auth')->group(function() {
@@ -74,6 +76,11 @@ Route::middleware('auth')->group(function() {
 
         Route::get('/settings', [SettingsController::class, 'settings'])->name('settings');
         Route::post('/save-settings', [SettingsController::class, 'save_settings'])->name('save_settings');
+
+        Route::get('/labels', [LabelController::class, 'label_view'])->name('label_view');
+        Route::post('/add-label', [LabelController::class, 'add_label'])->name('add_label');
+        Route::get('/destroy-label/{id}', [LabelController::class, 'destroy_label'])->name('destroy_label');
+        Route::post('/change-label/{id}', [LabelController::class, 'change_label'])->name('change_label');
 
         Route::get('/users', [UserController::class, 'user_view'])->name('user_view');
         Route::post('/save_user/{id}', [UserController::class, 'save_user'])->name('save_user');

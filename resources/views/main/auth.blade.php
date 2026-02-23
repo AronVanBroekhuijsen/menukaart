@@ -1,6 +1,6 @@
 @guest
 @else
-<nav class="nav navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<nav class="nav navbar navbar-expand-md navbar-light bg-white shadow-sm text-red-400">
 
     <div class="px-3 w-100">
 
@@ -30,6 +30,7 @@
                 @if (Auth::user()->role == 'admin')
                     <a class="nav-link" href="{{ route('user_view') }}">Gebruikers</a>
                     <a class="nav-link" href="{{ route('settings') }}">Instellingen</a>
+                    <a class="nav-link" href="{{ route('label_view') }}">Feestdagen</a>
                 @endif
             </ul>
 
