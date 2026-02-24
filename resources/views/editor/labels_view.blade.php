@@ -30,8 +30,8 @@
                     @foreach ($labels as $label)
                     <tr>
                         <td><b>{{ $label->name }}</b></td>
-                        <td>{{ $label->start }}</td>
-                        <td>{{ $label->end }}</td>
+                        <td>{{ $label->start = Carbon\Carbon::parse($label->start)->format('Y-m-d') }}</td>
+                        <td>{{ $label->end = Carbon\Carbon::parse($label->end)->format('Y-m-d') }}</td>
                         <td>
                             @if (Auth::user()->role == 'editor' || Auth::user()->role == 'admin')
                                 <!-- Button trigger modal -->

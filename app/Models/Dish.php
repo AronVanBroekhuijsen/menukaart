@@ -35,7 +35,9 @@ class Dish extends Model
     {
         $now = Carbon::now();
         if (Route::currentRouteName() !== 'dish_view' && Route::currentRouteName() !== 'category_view') {
-            return $this->belongsToMany(Label::class)->withPivot(['price'])->where('start', '<', $now)->where('end', '>', $now);
+            return $this->belongsToMany(Label::class)->withPivot(['price'])
+                ->where('start', '<', $now)
+                ->where('end', '<', $now);
         } else {
             return $this->belongsToMany(Label::class)->withPivot(['price']);
         }

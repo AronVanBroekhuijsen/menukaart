@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 
 class Course extends Model
@@ -21,6 +23,18 @@ class Course extends Model
         'title',
         'menu_id',
     ];
+
+    public function labels(): BelongsToMany
+    {
+        $now = Carbon::now();
+        if (Route::currentRouteName() !== 'dish_view' && Route::currentRouteName() !== 'category_view') {
+            return $this->belongsToMany(Label::class, 'course_label')
+                ->where('start', '<=', $now)
+                ->where('end', '>=', $now);
+        } else {
+            return $this->belongsToMany(Label::class, 'course_label');
+        }
+    }
 
     public function title($value)
     {
@@ -82,9 +96,16 @@ class Course extends Model
     public function sub_courses(): HasMany
     {
         if (Route::currentRouteName() !== 'menu_edit' && Route::currentRouteName() !== 'category_view' && Route::currentRouteName() !== 'dish_view') {
-            return $this->hasMany(SubCourse::class)->orderBy('order');
+            return $this->hasMany(SubCourse::class)->where('toggle', '=', 0)->orderBy('order');
         } else {
             return $this->hasMany(SubCourse::class);
         }
+    }
+
+    public function label_date() {
+        $now = Carbon::now();
+        $label = Label::where('start', '<', $now)->where('end', '>', $now)->first();
+
+        return $label;
     }
 }

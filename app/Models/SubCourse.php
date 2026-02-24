@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 
 class SubCourse extends Model
@@ -22,6 +24,18 @@ class SubCourse extends Model
         'sub_title',
         'course_id',
     ];
+
+    public function labels(): BelongsToMany
+    {
+        $now = Carbon::now();
+        if (Route::currentRouteName() !== 'dish_view' && Route::currentRouteName() !== 'category_view') {
+            return $this->belongsToMany(Label::class, 'sub_course_label')
+                ->where('start', '<=', $now)
+                ->where('end', '>=', $now);
+        } else {
+            return $this->belongsToMany(Label::class, 'sub_course_label');
+        }
+    }
 
     protected $table = 'sub_courses';
 
@@ -141,5 +155,12 @@ class SubCourse extends Model
         } else {
             return $this->hasMany(Dish::class);
         }
+    }
+
+    public function label_date() {
+        $now = Carbon::now();
+        $label = Label::where('start', '<', $now)->where('end', '>', $now)->first();
+
+        return $label;
     }
 }

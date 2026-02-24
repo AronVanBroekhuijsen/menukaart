@@ -24,7 +24,7 @@ class MenuController extends Controller
     {
         $menus = Menu::where('toggle', '=', 0)->orderBy('order')->get();
         $now = Carbon::now();
-        $bg_image = Label::where('start', '<', $now)->where('end', '>', $now)->first()->image ?? '';
+        $bg_image = Label::where([['start', '<', $now], ['end', '>', $now]])->first()->image ?? '';
 
         return view('main.home', ['menus' => $menus, 'bg_image' => $bg_image]);
     }

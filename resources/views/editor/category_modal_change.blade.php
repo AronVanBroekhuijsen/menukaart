@@ -99,6 +99,30 @@
                             @endforeach
                         </div>
                     @endif
+                    @if ($category->type == 'courses')
+                        <div class="row m-0">
+                            <div for="date_label" class="form-label col-12 p-0">Selecteer datum label</div>
+                            <hr class="w-100">
+                            @foreach ($labels as $label)
+                                <div class="form-switch custom-check col-6">
+                                    <label for="{{$label->name}}" class="form-label">{{$label->name}}</label>
+                                    <input name="labels[]" value="{{$label->id}}" @if ($label->course->find($item->id) != null && $label->course->find($category->id)->pivot->label_id == $label->id) checked @endif id="{{$label->name}}" type="checkbox" class="form-check-input">
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                    @if ($category->type == 'sub_courses')
+                        <div class="row m-0">
+                            <div for="date_label" class="form-label col-12 p-0">Selecteer datum label</div>
+                            <hr class="w-100">
+                            @foreach ($labels as $label)
+                                <div class="form-switch custom-check col-6">
+                                    <label for="{{$label->name}}" class="form-label">{{$label->name}}</label>
+                                    <input name="labels[]" value="{{$label->id}}" @if ($label->subcourse->find($item->id) != null && $label->subcourse->find($category->id)->pivot->label_id == $label->id) checked @endif id="{{$label->name}}" type="checkbox" class="form-check-input">
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

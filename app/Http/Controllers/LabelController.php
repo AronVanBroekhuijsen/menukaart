@@ -7,6 +7,7 @@ use Redirect;
 use App\Models\Label;
 use App\Models\Dish;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Carbon;
 
 class LabelController extends Controller
 {
@@ -14,6 +15,7 @@ class LabelController extends Controller
     public function label_view(Request $request)
     {
         $labels = Label::all();
+
         return view('editor.labels_view', ['labels' => $labels]);
         $labels = $request::input('labels');
     }
@@ -28,8 +30,8 @@ class LabelController extends Controller
 
         $label = new Label();
         $label->name = $request::input('label-name');
-        $label->start = $request::input('start');
-        $label->end = $request::input('end');
+        $label->start = Carbon::parse($request::input('start'));
+        $label->end = Carbon::parse($request::input('end'))->endOfDay();
         $label->image = $filename ?? '';
         $label->save();
 
@@ -51,8 +53,8 @@ class LabelController extends Controller
         }
 
         $label->name = $request::input('label-name');
-        $label->start = $request::input('start');
-        $label->end = $request::input('end');
+        $label->start = Carbon::parse($request::input('start'));
+        $label->end = Carbon::parse($request::input('end'))->endOfDay();
         $label->save();
 
         return Redirect::back();
@@ -61,6 +63,8 @@ class LabelController extends Controller
     public function change_label_view($id)
     {
         $label = Label::find($id);
+        $label->start = Carbon::parse($label->start)->format('Y-m-d');
+        $label->end = Carbon::parse($label->end)->format('Y-m-d');
 
         $html = view('editor.labels_modal_change', ['label' => $label])->render();
 

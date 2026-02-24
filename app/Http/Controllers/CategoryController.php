@@ -259,6 +259,9 @@ class CategoryController extends Controller
                 }
                 $course->save();
 
+                $course->labels()->sync($request::input('labels'));
+                $course->save();
+
                 $category = CourseNl::where('course_id', '=', $id)->first();
                 $category->title = $request::input('title');
                 $category->sub_title = $request::input('sub_title');
@@ -290,6 +293,9 @@ class CategoryController extends Controller
                     Storage::disk('images')->put($filename, file_get_contents($file->getRealPath()));
                     $sub_course->image = $filename;
                 }
+                $sub_course->save();
+
+                $sub_course->labels()->sync($request::input('labels'));
                 $sub_course->save();
 
                 $category = SubCourseNl::where('sub_course_id', '=', $id)->first();

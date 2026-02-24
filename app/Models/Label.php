@@ -12,6 +12,16 @@ class Label extends Model
         return $this->belongsToMany(Menu::class, 'menu_label');
     }
 
+    public function course(): BelongsToMany
+    {
+        return $this->belongsToMany(Course::class, 'course_label');
+    }
+
+    public function subcourse(): BelongsToMany
+    {
+        return $this->belongsToMany(SubCourse::class, 'sub_course_label');
+    }
+
     public function dishes(): BelongsToMany
     {
         return $this->belongsToMany(Dish::class)->withPivot(['price']);
