@@ -29,8 +29,8 @@ class Menu extends Model
         $now = Carbon::now();
         if (Route::currentRouteName() !== 'dish_view' && Route::currentRouteName() !== 'category_view') {
             return $this->belongsToMany(Label::class, 'menu_label')
-                ->where('start', '<', $now)
-                ->where('end', '<', $now);
+                ->where('start', '<=', $now)
+                ->where('end', '>=', $now);
         } else {
             return $this->belongsToMany(Label::class, 'menu_label');
         }
