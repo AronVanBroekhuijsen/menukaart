@@ -96,7 +96,12 @@ class Course extends Model
     public function sub_courses(): HasMany
     {
         if (Route::currentRouteName() !== 'menu_edit' && Route::currentRouteName() !== 'category_view' && Route::currentRouteName() !== 'dish_view') {
-            return $this->hasMany(SubCourse::class)->where('toggle', '=', 0)->orderBy('order');
+            if ($this->label_date() != null)
+            {
+                return $this->hasMany(SubCourse::class)->whereIn('toggle', [0, 1])->orderBy('order');
+            } else {
+                return $this->hasMany(SubCourse::class)->where('toggle', '=', 0)->orderBy('order');
+            }
         } else {
             return $this->hasMany(SubCourse::class);
         }

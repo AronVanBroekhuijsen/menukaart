@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MenuNl;
 use Request;
 use Redirect;
 use App\Models\Label;
 use App\Models\Dish;
+use App\Models\Menu;
+use App\Models\Course;
+use App\Models\SubCourse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Carbon;
+
+Carbon::setTestNow(Carbon::parse('2026/02/21'));
+$current = Carbon::now()->dayOfWeek();
+dd($current);
 
 class LabelController extends Controller
 {
@@ -34,6 +42,37 @@ class LabelController extends Controller
         $label->end = Carbon::parse($request::input('end'))->endOfDay();
         $label->image = $filename ?? '';
         $label->save();
+
+
+
+        $alltoggle= [
+            'menu_toggle' => ['model' => Menu::class, 'name' => 'menu'],
+            'course_toggle' => ['model' => Course::class, 'name' => 'course'],
+            'sub_course_toggle' => ['model' => SubCourse::class, 'name' => 'sub_course'],
+            'dish_toggle' => ['model' => Dish::class, 'name' => 'dish'],
+            ];
+
+        foreach ($alltoggle as $togglename => $data) {
+            if ($request::input($togglename) == 'on') {
+                $model = $data['model'];
+                $name = $data['name'];
+
+                foreach ($model::all() as $$name) {
+                    $collection = [];
+                    foreach ($$name->labels as $old_label) {
+                        $collection[$old_label['id']] = $model === Dish::class
+                            ? ['price' => str_replace(',', '.', $$name->price)]
+                            : [];
+                    }
+                    $collection[$label->id] = $model === Dish::class
+                        ? ['price' => str_replace(',', '.', $$name->price)]
+                        : [];
+                    $$name->labels()->sync($collection);
+                    $$name->save();
+                }
+            }
+        }
+
 
         return Redirect::back();
     }
@@ -71,8 +110,20 @@ class LabelController extends Controller
         return $html;
     }
 
+    public function label_toggle($id)
+    {
+
+    }
+
     public function destroy_label($id)
     {
+        $label = Label::findOrFail($id);
+        $relations = ['menus', 'course', 'subcourse', 'dishes'];
+
+        foreach ($relations as $relation) {
+            $label->$relation()->wherePivot('label_id', $label->id)->detach();
+        }
+
         Label::destroy($id);
 
         return Redirect::back();

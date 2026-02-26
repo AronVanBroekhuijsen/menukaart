@@ -7,10 +7,11 @@
                             <input type="text" name="label-name" class="form-control" placeholder="Label Naam" value="{{$label->name}}">
                         </div>
                         <div class="form-group">
-                            <div id="date-range-picker-change-label" class="flex items-center">
-                                <div class="relative">
+                            <div id="date-range-picker-change-label" class="d-flex items-center">
+                                <div class="relative mb-3 col-6 pl-0">
                                     <label for="start_change"><b>Begin:</b></label>
                                     <input
+                                    onfocus="this.showPicker()"
                                     type="date"
                                     id="start_change"
                                     name="start"
@@ -18,9 +19,10 @@
                                     max="{{$label->end}}"
                                     value="{{$label->start}}"/>
                                 </div>
-                                <div class="relative max-w-sm">
+                                <div class="relative max-w-sm col-6 pr-0">
                                     <label for="end_change"><b>Eind:</b></label>
                                     <input
+                                    onfocus="this.showPicker()"
                                     type="date"
                                     id="end_change"
                                     name="end"

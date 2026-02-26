@@ -27,7 +27,7 @@ class Menu extends Model
     public function labels(): BelongsToMany
     {
         $now = Carbon::now();
-        if (Route::currentRouteName() !== 'dish_view' && Route::currentRouteName() !== 'category_view') {
+        if (Route::currentRouteName() !== 'dish_view' && Route::currentRouteName() !== 'category_view' && Route::currentRouteName() !== 'add_label') {
             return $this->belongsToMany(Label::class, 'menu_label')
                 ->where('start', '<=', $now)
                 ->where('end', '>=', $now);
@@ -144,11 +144,17 @@ class Menu extends Model
     public function courses(): HasMany
     {
         if (Route::currentRouteName() !== 'menu_edit' && Route::currentRouteName() !== 'category_view' && Route::currentRouteName() !== 'dish_view' && Route::currentRouteName() !== 'change_dish_view') {
-            return $this->hasMany(Course::class)->where('toggle', '=', 0)->orderBy('order');
+            if ($this->label_date() != null)
+            {
+                return $this->hasMany(Course::class)->whereIn('toggle', [0, 1])->orderBy('order');
+            } else {
+                return $this->hasMany(Course::class)->where('toggle', '=', 0)->orderBy('order');
+            }
         } else {
             return $this->hasMany(Course::class);
         }
     }
+
 
     public function drinkmenu() {
         $drinkmenu = Setting::find(1)->value;

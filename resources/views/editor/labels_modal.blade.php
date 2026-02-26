@@ -22,24 +22,68 @@
                             <input type="text" name="label-name" class="form-control" placeholder="Label Naam">
                         </div>
                         <div class="form-group">
-                            <div id="date-range-picker-add-label" class="flex items-center">
-                                <div class="relative">
+                            <div id="date-range-picker-add-label" class="d-flex items-center">
+                                <div class="relative mb-3 col-6 pl-0">
                                     <label for="start_add"><b>Begin:</b></label>
                                     <input
+                                    onclick="this.showPicker()"
                                     type="date"
                                     id="start_add"
                                     name="start"
                                     class="form-control"/>
                                 </div>
-                                <div class="relative max-w-sm pl-2">
+                                <div class="relative max-w-sm col-6 pr-0">
                                     <label for="end_add"><b>Eind:</b></label>
                                     <input
+                                    onclick="this.showPicker()"
                                     type="date"
                                     id="end_add"
                                     name="end"
                                     class="form-control"/>
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <label>Bij de onderstaande staat die direct aan</label>
+                            </div>
+                            <div class="d-flex">
+                                <div class="form-switch custom-check col-3">
+                                    <label for="menu_label_toggle" class="form-label">Menu</label>
+                                    <input
+                                            type="checkbox"
+                                            id="menu_label_toggle"
+                                            name="menu_toggle"
+                                            class="form-check-input ml-0">
+                                </div>
+                                <div class="form-switch custom-check col-3">
+                                    <label for="course_label_toggle" class="form-label">Courses</label>
+                                    <input
+                                            type="checkbox"
+                                            id="course_label_toggle"
+                                            name="course_toggle"
+                                            class="form-check-input ml-0">
+                                </div>
+                                <div class="form-switch custom-check col-3">
+                                    <label for="sub_course_label_toggle" class="form-label">Sub Courses</label>
+                                    <input
+                                            type="checkbox"
+                                            id="sub_course_label_toggle"
+                                            name="sub_course_toggle"
+                                            class="form-check-input ml-0">
+                                </div>
+                                <div class="form-switch custom-check col-3">
+                                    <label for="dish_label_toggle" class="form-label">Producten</label>
+                                    <input
+                                            type="checkbox"
+                                            id="dish_label_toggle"
+                                            name="dish_toggle"
+                                            class="form-check-input ml-0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
                         </div>
                         <div class="form-group">
                             <label for="img" class="form-label">Animatie</label>
