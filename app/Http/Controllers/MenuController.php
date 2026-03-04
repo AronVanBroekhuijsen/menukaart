@@ -22,7 +22,14 @@ class MenuController extends Controller
      */
     public function home()
     {
-        $menus = Menu::where('toggle', '=', 0)->orderBy('order')->get();
+        $now = Carbon::now();
+        $label = Label::where('start', '<', $now)->where('end', '>', $now)->first();
+
+        if ($label != null) {
+            $menus = Menu::whereIn('toggle', [0, 1])->get();
+        } else {
+            $menus = Menu::where('toggle', '=', 0)->get();
+        }
         $now = Carbon::now();
         $bg_image = Label::where([['start', '<', $now], ['end', '>', $now]])->first()->image ?? '';
 
@@ -36,7 +43,14 @@ class MenuController extends Controller
      */
     public function menu($menu, $id)
     {
-        $menus = Menu::where('toggle', '=', 0)->get();
+        $now = Carbon::now();
+        $label = Label::where('start', '<', $now)->where('end', '>', $now)->first();
+
+        if ($label != null) {
+            $menus = Menu::whereIn('toggle', [0, 1])->get();
+        } else {
+            $menus = Menu::where('toggle', '=', 0)->get();
+        }
         $menu = Menu::where([['toggle', '=', 0],['id', '=', $id]])->first();
         $side_info = SideInfo::first();
         $sides = Side::where('toggle', '=', 0)->get();

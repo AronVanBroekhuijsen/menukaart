@@ -89,7 +89,7 @@
                     @endif
 
                         <div class="row m-0">
-                            <div for="date_label" class="form-label col-12 p-0">Selecteer datum label</div>
+                            <div for="date_label" class="form-label col-12 p-0">Selecteer Feestdagen</div>
                             <hr class="w-100">
                             @foreach ($labels as $label)
                                 <div class="form-switch custom-check col-6">

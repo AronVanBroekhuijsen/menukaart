@@ -260,6 +260,15 @@ class Dish extends Model
         $now = Carbon::now();
         $label = Label::where('start', '<', $now)->where('end', '>', $now)->first();
 
+        if ($label) {
+            $saveddays = json_decode($label->which_day, true) ?? [];
+            $today = $now->dayOfWeek;
+
+            if (!in_array((string)$today, $saveddays)) {
+                return null;
+            }
+        }
+
         return $label;
     }
 

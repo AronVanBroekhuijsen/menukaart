@@ -27,7 +27,7 @@
         @include('main.auth')
 
         @if($menu !== null)
-            @include('modules.menuheader', ['menu' => $menu, 'allergies' => $allergies, 'bg_image' => $bg_image])
+            @include('modules.menuheader', ['menu' => $menu, 'allergies' => $allergies, 'bg_image' => $bg_image, 'menus' => $menus])
 
             @if($menu->id == $menu->cocktailmenu())
                 <div class="w-50 mx-auto position-relative z-10 pt-3">

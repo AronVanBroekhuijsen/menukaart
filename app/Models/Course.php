@@ -96,8 +96,7 @@ class Course extends Model
     public function sub_courses(): HasMany
     {
         if (Route::currentRouteName() !== 'menu_edit' && Route::currentRouteName() !== 'category_view' && Route::currentRouteName() !== 'dish_view') {
-            if ($this->label_date() != null)
-            {
+            if ($this->label_date() != null) {
                 return $this->hasMany(SubCourse::class)->whereIn('toggle', [0, 1])->orderBy('order');
             } else {
                 return $this->hasMany(SubCourse::class)->where('toggle', '=', 0)->orderBy('order');
@@ -107,9 +106,23 @@ class Course extends Model
         }
     }
 
+    public function cocktailmenu() {
+        $cocktailmenu = Setting::find(5)->value;
+
+        return $cocktailmenu;
+    }
     public function label_date() {
         $now = Carbon::now();
         $label = Label::where('start', '<', $now)->where('end', '>', $now)->first();
+
+        if ($label) {
+            $saveddays = json_decode($label->which_day, true) ?? [];
+            $today = $now->dayOfWeek;
+
+            if (!in_array((string)$today, $saveddays)) {
+                return null;
+            }
+        }
 
         return $label;
     }

@@ -237,10 +237,48 @@ $('.changeLabelButton').on('click', function(){
         url: "/change-label-modal/"+id,
         success: function(result){
             $('#changeLabel .modal-content').append( result );
+
+                const change_repeatDaily = document.getElementById('change_repeatdaily');
+                const change_repeatCustom = document.getElementById('change_repeatcustom');
+                const change_repeatContainer = new bootstrap.Collapse(document.getElementById('change_days_container'), {toggle: false});
+
+                change_repeatDaily.addEventListener('change', function () {
+                    if (change_repeatDaily.checked) change_repeatContainer.hide();
+                });
+
+                change_repeatCustom.addEventListener('change', function () {
+                    if (change_repeatCustom.checked) change_repeatContainer.show();
+                });
+
+                if (change_repeatCustom.checked) {
+                    change_repeatContainer.show();
+                } else {
+                    change_repeatContainer.hide();
+                }
         }
     });
 });
 
 $('#changeLabel').on("hide.bs.modal", function() {
 	$('#changeLabel .modal-content form').remove();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const add_repeatDaily = document.getElementById('add_repeatdaily');
+    const add_repeatCustom = document.getElementById('add_repeatcustom');
+    const add_repeatContainer = new bootstrap.Collapse(document.getElementById('add_days_container'), {toggle: false});
+
+    add_repeatDaily.addEventListener('change', function() {
+        if (add_repeatDaily.checked) add_repeatContainer.hide();
+    });
+
+    add_repeatCustom.addEventListener('change', function() {
+        if (add_repeatCustom.checked) add_repeatContainer.show();
+    });
+
+    if(add_repeatCustom.checked) {
+        add_repeatContainer.show();
+    } else {
+        add_repeatContainer.hide();
+    }
 });
