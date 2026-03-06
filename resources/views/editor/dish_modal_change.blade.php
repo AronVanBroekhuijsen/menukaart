@@ -30,11 +30,11 @@
                         @endphp
                         <div class="form-group">
                             <label for="title" class="form-label">Titel</label>
-                            <input name="title" id="title" value="{{$title->nl}}" type="text" class="form-control">
+                            <input name="title" id="title" value="{{$title->nl}}" type="text" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="info" class="form-label">Info</label>
-                            <textarea name="info" id="info">{{$info->nl}}</textarea>
+                            <textarea name="info" id="info" required>{{$info->nl}}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="big_description" class="form-label">Extra info</label>
@@ -74,11 +74,11 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label for="title_en" class="form-label">Titel Engels</label>
-                            <input name="title_en" id="title_en" value="{{$title->en}}" type="text" class="form-control">
+                            <input name="title_en" id="title_en" value="{{$title->en}}" type="text" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="info_en" class="form-label">Info Engels</label>
-                            <textarea name="info_en" id="info_en">{{$info->en}}</textarea>
+                            <textarea name="info_en" id="info_en" required>{{$info->en}}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="big_description_en" class="form-label">Extra info Engels</label>
@@ -108,11 +108,11 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label for="title_de" class="form-label">Titel Duits</label>
-                            <input name="title_de" id="title_de" value="{{$title->de}}" type="text" class="form-control">
+                            <input name="title_de" id="title_de" value="{{$title->de}}" type="text" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="info_de" class="form-label">Info Duits</label>
-                            <textarea name="info_de" id="info_de">{{$info->de}}</textarea>
+                            <textarea name="info_de" id="info_de" required>{{$info->de}}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="big_description_de" class="form-label">Extra info Duits</label>

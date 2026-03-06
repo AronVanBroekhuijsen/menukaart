@@ -48,7 +48,7 @@
                         </div>
                         <div class="form-group">
                             <label for="info" class="form-label">Info</label>
-                            <textarea name="info" id="info"></textarea>
+                            <textarea name="info" id="info" required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="big_description" class="form-label">Extra info</label>
@@ -92,7 +92,7 @@
                         </div>
                         <div class="form-group">
                             <label for="info_en" class="form-label">Info Engels</label>
-                            <textarea name="info_en" id="info_en"></textarea>
+                            <textarea name="info_en" id="info_en" required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="big_description_en" class="form-label">Extra info Engels</label>
@@ -126,7 +126,7 @@
                         </div>
                         <div class="form-group">
                             <label for="info_de" class="form-label">Info Duits</label>
-                            <textarea name="info_de" id="info_de"></textarea>
+                            <textarea name="info_de" id="info_de" required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="big_description_de" class="form-label">Extra info Duits</label>
@@ -147,7 +147,7 @@
                                 </div>
                                 <div class="form-switch col-6">
                                     <label for="{{$label->name}}_price" class="form-label">Prijs</label>
-                                    <input name="labels[{{$label->id}}][price]" id="{{$label->name}}_price" value="0" type="number" step=".01" class="form-control">
+                                    <input name="labels[{{$label->id}}][price]" id="{{$label->name}}_price" type="number" step=".01" class="form-control">
                                 </div>
                             @endforeach
                         </div>

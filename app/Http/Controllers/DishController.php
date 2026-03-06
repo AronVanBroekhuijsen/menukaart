@@ -161,13 +161,14 @@ class DishController extends Controller
             $dish->product_id = 0;
         }
         $collection = [];
-        foreach($request::input('labels') as $label) {
-            if (isset($label['id'])) {
-                $collection[$label['id']] = ['price' => $label['price']];
+        foreach ($request::input('labels', []) as $label) {
+            if (!empty($label['id'])) {
+                $collection[$label['id']] = ['price' => filled($label['price']) ? $label['price'] : $dish->price];
             }
         }
-        $dish->labels()->sync($collection);
+
         $dish->save();
+        $dish->labels()->sync($collection);
 
         $translation = new DishNl();
         $translation->dish_id = $dish->id;
@@ -245,14 +246,16 @@ class DishController extends Controller
         } else {
             $dish->product_id = 0;
         }
+
         $collection = [];
-        foreach($request::input('labels') as $label) {
-            if (isset($label['id'])) {
-                $collection[$label['id']] = ['price' => $label['price']];
+        foreach ($request::input('labels', []) as $label) {
+            if (!empty($label['id'])) {
+                $collection[$label['id']] = ['price' => filled($label['price']) ? $label['price'] : $dish->price];
             }
         }
-        $dish->labels()->sync($collection);
+
         $dish->save();
+        $dish->labels()->sync($collection);
 
         $translation = DishNl::where('dish_id', '=', $id)->first();
         $translation->title = Str::title(Str::lower($request::input('title')));
@@ -323,6 +326,9 @@ class DishController extends Controller
      */
     public function destroy_dish($id)
     {
+        $dish = Dish::findOrFail($id);
+        $dish->labels()->detach();
+
         Dish::destroy($id);
         DishNl::where('dish_id', '=', $id)->delete();
         DishEn::where('dish_id', '=', $id)->delete();
