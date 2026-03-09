@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dish;
 use Request;
 use Redirect;
 use Carbon\Carbon;
@@ -98,6 +99,7 @@ class CategoryController extends Controller
             $category->image = $filename ?? '';
             $category->order = Menu::all()->count() + 1;
             $category->save();
+            $category->labels()->sync($request::input('labels'));
 
             $translation = new MenuNl();
             $translation->menu_id = $category->id;
@@ -134,6 +136,7 @@ class CategoryController extends Controller
                     $category->image = $filename ?? '';
                     $category->order = Course::where('menu_id', '=', $id)->count() + 1;
                     $category->save();
+                    $category->labels()->sync($request::input('labels'));
 
                     $translation = new CourseNl();
                     $translation->course_id = $category->id;
@@ -165,6 +168,7 @@ class CategoryController extends Controller
                     $category->image = $filename ?? '';
                     $category->order = SubCourse::where('course_id', '=', $id)->count() + 1;
                     $category->save();
+                    $category->labels()->sync($request::input('labels'));
 
                     $translation = new SubCourseNl();
                     $translation->sub_course_id = $category->id;
@@ -434,18 +438,32 @@ class CategoryController extends Controller
     {
         switch ($type) {
             case 'menu':
+                $menu = Menu::findOrFail($id);
+                foreach ($menu->courses as $course) {
+                    foreach ($course->sub_courses as $sub_course) {
+                        $sub_course->labels()->detach();
+                    }
+                    $course->labels()->detach();
+                }
+                Menu::findOrFail($id)->labels()->detach();
                 Menu::destroy($id);
                 MenuNl::where('menu_id', '=', $id)->delete();
                 MenuEn::where('menu_id', '=', $id)->delete();
                 MenuDe::where('menu_id', '=', $id)->delete();
                 break;
             case 'courses':
+                $course = Course::findOrFail($id);
+                foreach ($course->sub_courses as $sub_course) {
+                    $sub_course->labels()->detach();
+                }
+                Course::findOrFail($id)->labels()->detach();
                 Course::destroy($id);
                 CourseNl::where('course_id', '=', $id)->delete();
                 CourseEn::where('course_id', '=', $id)->delete();
                 CourseDe::where('course_id', '=', $id)->delete();
                 break;
             case 'sub_courses':
+                SubCourse::findOrFail($id)->labels()->detach();
                 SubCourse::destroy($id);
                 SubCourseNl::where('sub_course_id', '=', $id)->delete();
                 SubCourseEn::where('sub_course_id', '=', $id)->delete();

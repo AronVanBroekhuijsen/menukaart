@@ -326,9 +326,7 @@ class DishController extends Controller
      */
     public function destroy_dish($id)
     {
-        $dish = Dish::findOrFail($id);
-        $dish->labels()->detach();
-
+        Dish::findOrFail($id)->labels()->detach();
         Dish::destroy($id);
         DishNl::where('dish_id', '=', $id)->delete();
         DishEn::where('dish_id', '=', $id)->delete();

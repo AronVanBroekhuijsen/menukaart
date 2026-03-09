@@ -82,6 +82,17 @@
                         <label for="text_large_de" class="form-label">Text Groot</label>
                         <input name="text_large_de" id="text_large_de" type="text" class="form-control">
                     </div>
+
+                        <div class="row m-0">
+                            <div for="date_label" class="form-label col-12 p-0">Selecteer Feestdagen</div>
+                            <hr class="w-100">
+                            @foreach ($labels as $label)
+                                <div class="form-switch custom-check col-6">
+                                    <label for="{{$label->name}}" class="form-label">{{$label->name}}</label>
+                                    <input name="labels[]" value="{{$label->id}}" id="{{$label->name}}" type="checkbox" class="form-check-input">
+                                </div>
+                            @endforeach
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
