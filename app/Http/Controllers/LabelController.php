@@ -56,7 +56,7 @@ class LabelController extends Controller
                 $model = $data['model'];
                 $name = $data['name'];
 
-                foreach ($model::all() as $$name) {
+                foreach ($model::where('toggle', '=', '0')->get() as $$name) {
                     $collection = [];
                     foreach ($$name->labels as $old_label) {
                         $collection[$old_label['id']] = $model === Dish::class
