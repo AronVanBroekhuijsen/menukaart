@@ -272,6 +272,15 @@ class Dish extends Model
         return $label;
     }
 
+    public function isVisible()
+    {
+        return ($this->label_date() == null && $this->toggle == 0) ||
+            ($this->label_date() != null && (
+                    ($this->label_date()->type == 'addon' && $this->toggle == 0) ||
+                    ($this->labels->first() != null)
+                ));
+    }
+
     public function more_info() {
         if (!isset($_GET['lang'])) {
             return 'meer info';

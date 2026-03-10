@@ -1,4 +1,4 @@
-@if ((($sub_course->label_date() == null && $sub_course->toggle == 0) || ($sub_course->label_date() != null && $sub_course->labels->first() != null)) && $sub_course->dishes->filter(fn($dish) => ($dish->label_date() == null && $dish->toggle == 0) || ($dish->label_date() != null && $dish->labels->first() != null))->isNotEmpty())
+@if ($sub_course->isVisible() && $sub_course->hasChildren())
     @if($sub_course->image)
         <div class="background-wrapper position-relative">
             <span class="categorie-background" style="background-image: linear-gradient(180deg,#697353 0%,rgba(64,65,64,0.39) 100%),url({{asset('storage/images/uploaded/'. $sub_course->image)}})!important;"></span>

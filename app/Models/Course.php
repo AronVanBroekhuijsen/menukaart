@@ -113,7 +113,7 @@ class Course extends Model
     }
     public function label_date() {
         $now = Carbon::now();
-        $label = Label::where('start', '<', $now)->where('end', '>', $now)->first();
+        $label = $this->labels()->where('start', '<', $now)->where('end', '>', $now)->first();
 
         if ($label) {
             $saveddays = json_decode($label->which_day, true) ?? [];
@@ -125,5 +125,37 @@ class Course extends Model
         }
 
         return $label;
+    }
+
+    public function isVisible()
+    {
+        return ($this->label_date() == null && $this->toggle == 0) ||
+            ($this->label_date() != null && (
+                    ($this->label_date()->type == 'addon' && $this->toggle == 0) ||
+                    ($this->labels->first() != null)
+                ));
+    }
+
+    public function hasChildren() {
+        return $this->sub_courses
+            ->filter(fn($sub_course) =>
+                ($sub_course->label_date() == null && $sub_course->toggle == 0) ||
+                ($sub_course->label_date() != null && (
+                        $sub_course->label_date()->type == 'addon' ||
+                        $sub_course->labels->first() != null
+                    ))
+            )
+            ->filter(fn($sub_course) =>
+            $sub_course->dishes
+                ->filter(fn($dish) =>
+                    ($dish->label_date() == null && $dish->toggle == 0) ||
+                    ($dish->label_date() != null && (
+                            $dish->label_date()->type == 'addon' ||
+                            $dish->labels->first() != null
+                        ))
+                )
+                ->isNotEmpty()
+            )
+            ->isNotEmpty();
     }
 }

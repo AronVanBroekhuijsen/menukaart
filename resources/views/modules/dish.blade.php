@@ -1,5 +1,5 @@
-@if (($dish->label_date() == null && $dish->toggle == 0) || ($dish->label_date() != null && $dish->labels->first() != null))
-        <div class="dish clearfix @if($dish->sub_course->course->menu_id == $dish->drinkmenu())my-table row @endif @if($dish->image && !$dish->big_description($dish->id))pb-3 @endif">
+@if ($dish->isVisible())
+    <div class="dish clearfix @if($dish->sub_course->course->menu_id == $dish->drinkmenu())my-table row @endif @if($dish->image && !$dish->big_description($dish->id))pb-3 @endif">
             @if($dish->sub_course->course->menu_id == $dish->drinkmenu())<div class="col"> @endif
                 <h6 class="dish-h6">
                     @if($dish->vos_image == 1)<img src="{{ asset('storage/images/LogoVos.png.webp') }}" style="padding: 7px;" alt="Vos ears for the beers">@endif

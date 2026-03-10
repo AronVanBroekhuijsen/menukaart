@@ -44,7 +44,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                                <label><b>Toepassen op</b></label>
+                            <label><b>Toepassen op</b></label>
                             <div class="d-flex">
                                 @foreach($toggles as $toggle)
                                     <div class="form-switch custom-check col-3 mb-0">
@@ -88,6 +88,18 @@
                                             <label class="btn btn-outline-primary rounded-pill me-2" for="{{ $day['add_id'] }}">{{ $day['label'] }}</label>
                                         </div>
                                     @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="d-flex">
+                                <div class="form-switch custom-check col-1 mb-0">
+                                    <label for="add_labeltype"><b>Toevoeging</b></label>
+                                    <input
+                                            type="checkbox"
+                                            id="add_labeltype"
+                                            name="additions_type"
+                                            class="form-check-input m-0">
                                 </div>
                             </div>
                         </div>

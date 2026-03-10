@@ -25,12 +25,14 @@ class MenuController extends Controller
         $now = Carbon::now();
         $label = Label::where('start', '<', $now)->where('end', '>', $now)->first();
 
-        if ($label != null) {
+        if ($label != null && $label->type === 'replace') {
             $menus = Menu::whereIn('toggle', [0, 1])->get();
+        } elseif ($label != null && $label->type === 'addon') {
+            $menus = Menu::where('toggle', 0)->orWhereHas('labels', fn($addonMenu) => $addonMenu->where('labels.id', $label->id))->get();
         } else {
-            $menus = Menu::where('toggle', '=', 0)->get();
+            $menus = Menu::where('toggle', 0)->get();
         }
-        $now = Carbon::now();
+
         $bg_image = Label::where([['start', '<', $now], ['end', '>', $now]])->first()->image ?? '';
 
         return view('main.home', ['menus' => $menus, 'bg_image' => $bg_image]);
@@ -46,15 +48,16 @@ class MenuController extends Controller
         $now = Carbon::now();
         $label = Label::where('start', '<', $now)->where('end', '>', $now)->first();
 
-        if ($label != null) {
+        if ($label != null && $label->type === 'replace') {
             $menus = Menu::whereIn('toggle', [0, 1])->get();
+        } elseif ($label != null && $label->type === 'addon') {
+            $menus = Menu::where('toggle', 0)->orWhereHas('labels', fn($addonMenu) => $addonMenu->where('labels.id', $label->id))->get();
         } else {
-            $menus = Menu::where('toggle', '=', 0)->get();
+            $menus = Menu::where('toggle', 0)->get();
         }
         $menu = Menu::where([['toggle', '=', 0],['id', '=', $id]])->first();
         $side_info = SideInfo::first();
         $sides = Side::where('toggle', '=', 0)->get();
-        $now = Carbon::now();
         $bg_image = Label::where('start', '<', $now)->where('end', '>', $now)->first()->image ?? '';
 
         if ($side_info != null) {

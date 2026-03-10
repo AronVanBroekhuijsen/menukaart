@@ -183,4 +183,13 @@ class Menu extends Model
 
         return $label;
     }
+
+    public function isVisible()
+    {
+        return (!isset($this->menu_id) && $this->label_date() == null && $this->toggle == 0) ||
+            (!isset($this->menu_id) && $this->label_date() != null && (
+                    ($this->label_date()->type == 'addon' && $this->toggle == 0) ||
+                    ($this->labels->first() != null)
+                ));
+    }
 }

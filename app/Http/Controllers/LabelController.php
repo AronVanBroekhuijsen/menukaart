@@ -39,6 +39,7 @@ class LabelController extends Controller
         $label->end = Carbon::parse($request::input('end'))->endOfDay();
         $label->image = $filename ?? '';
         $label->which_day = json_encode($request::input('repeat_type') === 'add_repeatdaily' ? ['1','2','3','4','5','6','0'] : ($request::input('repeat_days') ?? []));
+        $label->type = $request::has('additions_type') ? 'addon' : 'replace';
         $label->save();
 
 
@@ -93,6 +94,7 @@ class LabelController extends Controller
         $label->start = Carbon::parse($request::input('start'));
         $label->end = Carbon::parse($request::input('end'))->endOfDay();
         $label->which_day = json_encode($request::input('repeat_type') === 'change_repeatdaily' ? ['1','2','3','4','5','6','0'] : ($request::input('repeat_days') ?? []));
+        $label->type = $request::has('additions_type') ? 'addon' : 'replace';
         $label->save();
 
         return Redirect::back();
@@ -118,7 +120,9 @@ class LabelController extends Controller
             $day['selected'] = in_array($day['value'], $saveddays);
         }
 
-        return view('editor.labels_modal_change', array_merge(['label' => $label], $formData));
+        $labeltype = ($label->type === 'addon');
+
+        return view('editor.labels_modal_change', array_merge(['label' => $label, 'labeltype' => $labeltype], $formData));
         $label = $request::input('labels');
     }
 

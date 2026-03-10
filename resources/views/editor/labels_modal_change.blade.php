@@ -67,6 +67,19 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <div class="d-flex">
+                                <div class="form-switch custom-check col-1 mb-0">
+                                    <label for="change_labeltype"><b>Toevoeging</b></label>
+                                    <input
+                                            type="checkbox"
+                                            id="change_labeltype"
+                                            name="additions_type"
+                                            class="form-check-input m-0"
+                                            {{ $labeltype ? 'checked' : '' }}>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="img" class="form-label"><b>Animatie</b></label>
                             <input name="img" id="img" type="file" accept="image/gif" class="form-control">
                             @if ($label->image)

@@ -1,5 +1,5 @@
-@if ((($course->label_date() == null && $course->toggle == 0) || ($course->label_date() != null && $course->labels->first() != null)) && $course->sub_courses->filter(fn($sub_course) => ($sub_course->label_date() == null && $sub_course->toggle == 0) || ($sub_course->label_date() != null && $sub_course->labels->first() != null))->filter(fn($sub_course) => $sub_course->dishes->filter(fn($dish) => ($dish->label_date() == null && $dish->toggle == 0) || ($dish->label_date() != null && $dish->labels->first() != null))->isNotEmpty())->isNotEmpty())
-    @if ($course->image != '') <div style="background-image: linear-gradient(180deg,#697353 0%,rgba(64,65,64,0.39) 100%),url('/storage/images/uploaded/{{ $course->image }}');
+@if ($course->isVisible() && $course->hasChildren())
+        @if ($course->image != '') <div style="background-image: linear-gradient(180deg,#697353 0%,rgba(64,65,64,0.39) 100%),url('/storage/images/uploaded/{{ $course->image }}');
                 background-position: 50%;
         background-repeat: no-repeat;
         background-size: cover;
