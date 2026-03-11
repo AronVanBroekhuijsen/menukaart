@@ -182,14 +182,15 @@ class SubCourse extends Model
     }
 
     public function hasChildren() {
-        return $this->dishes
-            ->filter(fn($dish) =>
-                ($dish->label_date() == null && $dish->toggle == 0) ||
-                ($dish->label_date() != null && (
-                        $dish->label_date()->type == 'addon' ||
-                        $dish->labels->first() != null
-                    ))
-            )
-            ->isNotEmpty();
+        return $this->dishes->contains(fn($dish) => $dish->isVisible());
+//        return $this->dishes
+//            ->filter(fn($dish) =>
+//                ($dish->label_date() == null && $dish->toggle == 0) ||
+//                ($dish->label_date() != null && (
+//                        $dish->label_date()->type == 'addon' ||
+//                        $dish->labels->first() != null
+//                    ))
+//            )
+//            ->isNotEmpty();
     }
 }

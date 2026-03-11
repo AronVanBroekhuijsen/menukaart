@@ -192,4 +192,8 @@ class Menu extends Model
                     ($this->labels->first() != null)
                 ));
     }
+
+    public function hasChildren() {
+        return $this->courses->contains(fn($course) => $course->hasChildren());
+    }
 }
