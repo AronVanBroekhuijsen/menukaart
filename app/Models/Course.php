@@ -137,6 +137,6 @@ class Course extends Model
     }
 
     public function hasChildren() {
-        return $this->sub_courses->contains(fn($sub_course) => $sub_course->hasChildren());
+        return $this->sub_courses->contains(fn($sub_course) => $sub_course->isVisible() && $sub_course->dishes->contains(fn($dish) => $dish->isVisible()));
     }
 }

@@ -98,7 +98,7 @@ class MenuController extends Controller
             }
         }
 
-        if ($menu == null) {
+        if ($menu == null || !$menu->hasChildren()) {
             return redirect('/');
         }
 
