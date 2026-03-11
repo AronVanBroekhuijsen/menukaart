@@ -138,25 +138,5 @@ class Course extends Model
 
     public function hasChildren() {
         return $this->sub_courses->contains(fn($sub_course) => $sub_course->hasChildren());
-//        return $this->sub_courses
-//            ->filter(fn($sub_course) =>
-//                ($sub_course->label_date() == null && $sub_course->toggle == 0) ||
-//                ($sub_course->label_date() != null && (
-//                        $sub_course->label_date()->type == 'addon' ||
-//                        $sub_course->labels->first() != null
-//                    ))
-//            )
-//            ->filter(fn($sub_course) =>
-//            $sub_course->dishes
-//                ->filter(fn($dish) =>
-//                    ($dish->label_date() == null && $dish->toggle == 0) ||
-//                    ($dish->label_date() != null && (
-//                            $dish->label_date()->type == 'addon' ||
-//                            $dish->labels->first() != null
-//                        ))
-//                )
-//                ->isNotEmpty()
-//            )
-//            ->isNotEmpty();
     }
 }

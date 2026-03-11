@@ -55,7 +55,7 @@ class MenuController extends Controller
         } else {
             $menus = Menu::where('toggle', 0)->get();
         }
-        $menu = Menu::where([['toggle', '=', 0],['id', '=', $id]])->first();
+        $menu = Menu::where('id', '=', $id)->first();
         $side_info = SideInfo::first();
         $sides = Side::where('toggle', '=', 0)->get();
         $bg_image = Label::where('start', '<', $now)->where('end', '>', $now)->first()->image ?? '';
